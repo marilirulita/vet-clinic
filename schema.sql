@@ -10,3 +10,27 @@ CREATE TABLE animals (
 );
 
 ALTER TABLE animals ADD species varchar(100);
+
+CREATE TABLE owners (
+    id integer GENERATED ALWAYS AS IDENTITY,
+    full_name varchar(100),
+    age integer,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE species (
+    id integer GENERATED ALWAYS AS IDENTITY,
+    name varchar(100),
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE animals ALTER COLUMN id SET NOT NULL;
+ALTER TABLE animals ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY;
+ALTER TABLE animals ADD PRIMARY KEY (id);
+
+ALTER TABLE animals DROP COLUMN species;
+ALTER TABLE animals ADD COLUMN species_id integer;
+ALTER TABLE animals ADD CONSTRAINT fk_species FOREIGN KEY (species_id) REFERENCES species (id) ON DELETE SET NULL;
+
+ALTER TABLE animals ADD COLUMN owner_id integer;
+ALTER TABLE animals ADD CONSTRAINT fk_owner FOREIGN KEY (owner_id) REFERENCES owners (id) ON DELETE SET NULL;
