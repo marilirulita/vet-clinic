@@ -52,10 +52,17 @@ CREATE TABLE specializations (
 );
 
 CREATE TABLE visits (
+    id integer GENERATED ALWAYS AS IDENTITY,
     animals_id integer NOT NULL,
     vets_id integer NOT NULL,
     visit_date date NOT NULL,
     CONSTRAINT "fk_animals" FOREIGN KEY (animals_id) REFERENCES animals (id) ON DELETE SET NULL,
     CONSTRAINT "fk_vets" FOREIGN KEY (vets_id) REFERENCES vets (id) ON DELETE SET NULL,
-    PRIMARY KEY (animals_id, vets_id, visit_date)
+    PRIMARY KEY (id,animals_id, vets_id)
 );
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+CREATE INDEX index_visits_animals_id ON visits(animals_id ASC);
+CREATE INDEX index_visits_vets_id ON visits(vets_id ASC);
+CREATE INDEX index_owners_email ON owners(email ASC);
