@@ -52,10 +52,11 @@ CREATE TABLE specializations (
 );
 
 CREATE TABLE visits (
+    id integer GENERATED ALWAYS AS IDENTITY,
     animals_id integer NOT NULL,
     vets_id integer NOT NULL,
     visit_date date NOT NULL,
     CONSTRAINT "fk_animals" FOREIGN KEY (animals_id) REFERENCES animals (id) ON DELETE SET NULL,
     CONSTRAINT "fk_vets" FOREIGN KEY (vets_id) REFERENCES vets (id) ON DELETE SET NULL,
-    PRIMARY KEY (animals_id, vets_id, visit_date)
+    PRIMARY KEY (id,animals_id, vets_id)
 );
