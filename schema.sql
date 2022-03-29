@@ -60,3 +60,9 @@ CREATE TABLE visits (
     CONSTRAINT "fk_vets" FOREIGN KEY (vets_id) REFERENCES vets (id) ON DELETE SET NULL,
     PRIMARY KEY (id,animals_id, vets_id)
 );
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+CREATE INDEX index_visits_animals_id ON visits(animals_id ASC);
+CREATE INDEX index_visits_vets_id ON visits(vets_id ASC);
+CREATE INDEX index_owners_email ON owners(email ASC);
